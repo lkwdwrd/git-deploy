@@ -120,6 +120,8 @@ abstract class Deploy {
 			// Set the name of the log file
 			$filename = $this->_log;
 
+			error_log( var_export( $filename, true ) );
+
 			if ( ! file_exists( $filename ) ){
 				// Create the log file
 				file_put_contents( $filename, '' );
@@ -139,6 +141,7 @@ abstract class Deploy {
 	*/
 	private function execute(){
 		try{
+			$this->log( 'here' );
 			// Make sure we're in the right directory
 			chdir( $this->_path);
 

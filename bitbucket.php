@@ -16,7 +16,6 @@ class BitBucket_Deploy extends Deploy {
 		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ){
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $payload['commits'][0]['node'];
-			error_log( var_export( $data, true ) );
 			parent::__construct( $data );
 		}
 	}
