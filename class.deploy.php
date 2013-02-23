@@ -123,7 +123,7 @@ abstract class Deploy {
 	protected function log( $message, $type = 'INFO' ){
 		if ( self::$_log_name ){
 			// Set the name of the log file
-			$filename = self::$_log_path . '/' . rtrim( self::$_log, '/' );
+			$filename = self::$_log_path . '/' . rtrim( self::$_log_name, '/' );
 
 			if ( ! file_exists( $filename ) ){
 				// Create the log file
