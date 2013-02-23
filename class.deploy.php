@@ -10,7 +10,7 @@ abstract class Deploy {
 	 * The name of the file that will be used for logging deployments. Set 
 	 * to false to disable logging.
 	 */
-	private static $_log = 'deployments.log';
+	private static $_log = '~/deploy/deployments.log';
 
 	/**
 	 * The timestamp format used for logging.
