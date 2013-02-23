@@ -13,8 +13,8 @@ class BitBucket_Deploy extends Deploy {
 	function __construct( $payload ){
 		$payload = json_decode( stripslashes( $_POST['payload'] ), true );
 		$name = $payload['repository']['name'];
-		if ( isset( self::$repos[ $name ] ) && $repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ){
-			$data = self::$repos[ $name ];
+		if ( isset( parent::$repos[ $name ] ) && $repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ){
+			$data = parent::$repos[ $name ];
 			$data['commit'] = $payload['commits'][0]['node'];
 			parent::__construct( $data );
 		}

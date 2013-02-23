@@ -4,7 +4,7 @@ abstract class Deploy {
 	/**
 	 * Registered deploy repos
 	 */
-	private static $repos = array();
+	protected static $repos = array();
 
 	/**
 	 * The name of the file that will be used for logging deployments. Set 
