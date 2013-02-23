@@ -11,7 +11,7 @@ class BitBucket_Deploy extends Deploy {
 	 * @param 	string 	$payload 	The JSON encoded payload data.
 	 */
 	function __construct( $payload ){
-		$payload = json_decode( stripslashes( $_POST['payload'] ) ), true );
+		$payload = json_decode( stripslashes( $_POST['payload'] ), true );
 		$name = $payload['repository']['name'];
 		if ( isset( self::$repos[ $name ] && $repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ) ){
 			$data = self::$repos[ $name ];
