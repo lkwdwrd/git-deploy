@@ -41,7 +41,7 @@ abstract class Deploy {
 		);
 		$repo = array_merge( $defaults, $repo );
 
-		this::$repos[ $repo['name'] ] = $repo;
+		self::$repos[ $repo['name'] ] = $repo;
 	}
 
 	/**
