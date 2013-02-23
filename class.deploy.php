@@ -135,7 +135,7 @@ abstract class Deploy {
 
 			// Write the message into the log file
 			// Format: time --- type: message
-			file_put_contents( $filename, date( $this->_date_format ) . ' --- ' . $type . ': ' . $message . PHP_EOL, FILE_APPEND);
+			file_put_contents( $filename, date( self::$_date_format ) . ' --- ' . $type . ': ' . $message . PHP_EOL, FILE_APPEND);
 		}
 	}
 
