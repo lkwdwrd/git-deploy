@@ -116,11 +116,9 @@ abstract class Deploy {
 	 * @param 	string 	$type 		The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
 	 */
 	protected function log( $message, $type = 'INFO' ){
-		if ( $this->_log ){
+		if ( self::$_log ){
 			// Set the name of the log file
-			$filename = $this->_log;
-
-			error_log( var_export( $filename, true ) );
+			$filename = self::$_log;
 
 			if ( ! file_exists( $filename ) ){
 				// Create the log file
