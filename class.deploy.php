@@ -1,80 +1,121 @@
 <?php
 
-class Deploy {
+abstract class Deploy {
+	/**
+	 * Registered deploy repos
+	 */
+	private static $repos = array();
 
 	/**
-	 * A callback function to call after the deploy has finished.
-	 * 
-	 * @var callback
+	 * The name of the file that will be used for logging deployments. Set 
+	 * to false to disable logging.
 	 */
-	public $post_deploy;
-
-	 /**
-	 * The name of the file that will be used for logging deployments. Set to 
-	 * FALSE to disable logging.
-	 * 
-	 * @var string
-	 */
-	private $_log = 'deployments.log';
+	private static $_log = 'deployments.log';
 
 	/**
 	 * The timestamp format used for logging.
 	 * 
 	 * @link    http://www.php.net/manual/en/function.date.php
-	 * @var     string
 	 */
-	private $_date_format = 'Y-m-d H:i:sP';
+	private static $_date_format = 'Y-m-d H:i:sP';
+	
+	/**
+	 * Registers available repos for deployement
+	 *
+	 * @param array $repo The repo information and the path information for deployment
+	 * @return bool True on success, false on failure.
+	 */
+	public static function register_repo( $repo ) {
+		if ( ! is_array( $repo ) )
+			return false;
+		
+		$required_keys = array( 'name', 'path' );
+		foreach ( $required_keys as $key ) {
+			if ( ! array_key_exists( $key, $repo ) )
+				return false;
+		}
+
+		$defaults = array(
+			'branch' => 'origin',
+			'remote' => 'master',
+		);
+		$repo = array_merge( $defaults, $repo );
+
+		this::$repos[ $repo['name'] ] = $repo;
+	}
+
+	/**
+	 * Allows alternate log locations and date formats
+	 *
+	 * @return void.
+	 */
+	public static function set( $var, $value ) {
+		if ( ( 'log' === $var || 'date_format' === $var ) && is_string( $value ) )
+			self::${'_'.$var} = $value;
+	}
+
+	/**
+	 * Whether or not we are ready to deploy
+	 */
+	private $_deploy_ready;
+
+	/**
+	 * The name of the repo we are attempting deployment for.
+	 */
+	private $_name;
 
 	/**
 	 * The name of the branch to pull from.
-	 * 
-	 * @var string
 	 */
-	private $_branch = 'master';
+	private $_branch;
 
 	/**
 	 * The name of the remote to pull from.
-	 * 
-	 * @var string
 	 */
-	private $_remote = 'origin';
+	private $_remote;
 
 	/**
-	 * The directory where your website and git repository are located, can be 
+	 * The path to where your website and git repository are located, can be 
 	 * a relative or absolute path
-	 * 
-	 * @var string
 	 */
-	private $_directory;
+	private $_path;
 
 	/**
-	 * Sets up defaults.
-	 * 
-	 * @param  string  $directory  Directory where your website is located
-	 * @param  array   $data       Information about the deployment
+	 * A callback function to call after the deploy has finished.
 	 */
-	public function __construct( $directory, $options = array() ) {
-		// Determine the directory path
-		$this->_directory = realpath( $directory ) . DIRECTORY_SEPARATOR;
+	private $_post_deploy;
 
-		$available_options = array( 'log', 'date_format', 'branch', 'remote' );
+	/**
+	 * The commit that we are attempting to deploy
+	 */
+	private $_commit;
 
-		foreach ( $options as $option => $value ){
+	/**
+	 * Sets up the repo information.
+	 * 
+	 * @param 	array 	$repo 	Directory where your website is located
+	 */
+	protected function __construct( $repo ) {
+		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
+
+		$available_options = array( 'name', 'branch', 'remote', 'commit', 'post_deploy' );
+
+		foreach ( $repo as $option => $value ){
 			if ( in_array( $option, $available_options ) ){
 				$this->{'_'.$option} = $value;
 			}
 		}
 
-		$this->log( 'Attempting deployment...' );
+		$this->execute();
 	}
 
 	/**
 	 * Writes a message to the log file.
 	 * 
-	 * @param  string  $message  The message to write
-	 * @param  string  $type     The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
+	 * @param 	string 	$message 	The message to write
+	 * @param 	string 	$type 		The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
 	 */
-	public function log( $message, $type = 'INFO' ){
+	protected function log( $message, $type = 'INFO' ){
 		if ( $this->_log ){
 			// Set the name of the log file
 			$filename = $this->_log;
@@ -94,46 +135,28 @@ class Deploy {
 	}
 
 	/**
-	* Executes the necessary commands to deploy the website.
+	* Executes the necessary commands to deploy the code.
 	*/
-	public function execute(){
+	private function execute(){
 		try{
 			// Make sure we're in the right directory
 			chdir( $this->_directory );
-			$this->log( 'Changing working directory... ' );
 
 			// Discard any changes to tracked files since our last deploy
 			exec( 'git reset --hard HEAD', $output );
-			$this->log( 'Reseting repository... ' . implode( ' ', $output ) );
 
 			// Update the local repository
 			exec( 'git pull ' . $this->_remote . ' ' . $this->_branch, $output );
-			$this->log( 'Pulling in changes... ' . implode( ' ', $output ) );
 
 			// Secure the .git directory
 			echo exec( 'chmod -R og-rx .git' );
-			$this->log( 'Securing .git directory... ' );
 
-			if ( is_callable( $this->post_deploy ) ){
+			if ( is_callable( $this->post_deploy ) )
 				call_user_func( $this->post_deploy );
-			}
 
-			//$this->log( 'Deployment successful.' );
+			$this->log( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch ' successful' );
 		} catch ( Exception $e ){
 			$this->log( $e, 'ERROR' );
 		}
 	}
 }
-
-// This is just an example
-	$postdata = json_decode( stripslashes( $_POST['payload'] ), true );
-	if ( 'master' === $postdata['commits'][0]['branch'] )
-		$deploy = new Deploy( '/home2/woodwas4/public_html/ashwoodward/wp-content/' );
-
-//$deploy->post_deploy = function() use ( $deploy ){
-	// hit the wp-admin page to update any db changes
-//	exec( 'curl http://ashwoodward.com/wp-admin/upgrade.php?step=upgrade_db' );
-//	$deploy->log( 'Updating wordpress database... ' );
-//};
-
-$deploy->execute();
