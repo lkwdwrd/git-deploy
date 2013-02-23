@@ -140,7 +140,7 @@ abstract class Deploy {
 	private function execute(){
 		try{
 			// Make sure we're in the right directory
-			chdir( $this->_directory );
+			chdir( $this->_path);
 
 			// Discard any changes to tracked files since our last deploy
 			exec( 'git reset --hard HEAD', $output );
