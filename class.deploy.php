@@ -151,10 +151,10 @@ abstract class Deploy {
 			// Secure the .git directory
 			echo exec( 'chmod -R og-rx .git' );
 
-			if ( is_callable( $this->post_deploy ) )
-				call_user_func( $this->post_deploy );
+			if ( is_callable( $this->_post_deploy ) )
+				call_user_func( $this->_post_deploy );
 
-			$this->log( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch ' successful' );
+			$this->log( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch . ' successful' );
 		} catch ( Exception $e ){
 			$this->log( $e, 'ERROR' );
 		}
