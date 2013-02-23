@@ -6,7 +6,7 @@ class GitHub_Deploy extends Deploy {
 		
 	}
 }
-new GitHub_Deploy
+new GitHub_Deploy;
 
 // This is just an example
 	/*$postdata = json_decode( stripslashes( $_POST['payload'] ), true );
