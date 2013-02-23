@@ -144,7 +144,6 @@ abstract class Deploy {
 	*/
 	private function execute(){
 		try{
-			$this->log( 'here' );
 			// Make sure we're in the right directory
 			chdir( $this->_path);
 
