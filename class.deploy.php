@@ -10,7 +10,12 @@ abstract class Deploy {
 	 * The name of the file that will be used for logging deployments. Set 
 	 * to false to disable logging.
 	 */
-	private static $_log = __DIR__ . '/deployments.log';
+	private static $_log_name = 'deployments.log';
+
+	/**
+	 * The path to where we wish to store our log file.
+	 */
+	private static $_log_path = __DIR__;
 
 	/**
 	 * The timestamp format used for logging.
@@ -50,7 +55,7 @@ abstract class Deploy {
 	 * @return void.
 	 */
 	public static function set( $var, $value ) {
-		if ( ( 'log' === $var || 'date_format' === $var ) && is_string( $value ) )
+		if ( ( 'log_path' === $var || 'log_name' === $var || 'date_format' === $var ) && is_string( $value ) )
 			self::${'_'.$var} = $value;
 	}
 
@@ -116,9 +121,9 @@ abstract class Deploy {
 	 * @param 	string 	$type 		The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
 	 */
 	protected function log( $message, $type = 'INFO' ){
-		if ( self::$_log ){
+		if ( self::$_log_name ){
 			// Set the name of the log file
-			$filename = self::$_log;
+			$filename = self::$_log_path . '/' . rtrim( self::$_log, '/' );
 
 			if ( ! file_exists( $filename ) ){
 				// Create the log file
