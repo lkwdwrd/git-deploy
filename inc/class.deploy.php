@@ -1,5 +1,5 @@
 <?php
-error_log( 'defined:' . var_export( true !== ACTIVE_DEPLOY_ENDPOINT, true ) );
+error_log( 'full thing:' . var_export( ( ! defined( 'ACTIVE_DEPLOY_ENDPOINT' ) || true !== ACTIVE_DEPLOY_ENDPOINT ), true ) );
 // Causes the script to die if we are not using an actual enpoint to access it.
 if( ! defined( 'ACTIVE_DEPLOY_ENDPOINT' ) || true !== ACTIVE_DEPLOY_ENDPOINT )
 	die( '<h1>No Access</h1><p>An enpoint needs to be defined to use this file.</p>' );
