@@ -55,7 +55,7 @@ abstract class Deploy {
 	 */
 	public static function register_repo( $name, $repo ) {
 		if ( ! is_string( $name ) )
-			return false;
+			error_log( $name );
 
 		if ( ! is_array( $repo ) )
 			return false;
