@@ -12,7 +12,7 @@ class GitHub_Deploy extends Deploy {
 	 */
 	function __construct( $payload ){
 		$payload = json_decode( $_POST['payload'], true );
-		error_log( var_export( json_decode( $_POST['payload'] ), true ) );
+		error_log( var_export( $payload, true ) );
 		//$name = $payload['repository']['name'];
 		//$this->log( $payload['commits'][0]['branch'] );
 		//if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ){
