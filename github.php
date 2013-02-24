@@ -14,7 +14,7 @@ class GitHub_Deploy extends Deploy {
 		$payload = json_decode( $_POST['payload'] );
 		$name = $payload->repository->name;
 		$branch = basename( $payload->ref );
-		$commit = $payload->commits[0]->id;
+		$commit = substr( $payload->commits[0]->id, 0, 12 );
 		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $branch ){
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $commit;
