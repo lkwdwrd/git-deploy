@@ -27,20 +27,11 @@
  * other configuration you may need to do for the newly deployed code.
  */
 $repos = array(
-	'deploytest' => array(
+	/*'examplerepo' => array(
 		'branch' => 'master',
 		'remote' => 'origin',
-		'path' => '/home2/woodwas4/www/wpcopilot.net/deploytest/deploytest/'
-	),
-	'anotherrepo' => array(
-		'branch' => 'deploy',
-		'remote' => 'origin',
-		'path' => '/home2/woodwas4/www/wpcopilot.net/two/'
-	),
-	'ghtest' => array(
-		'branch' => 'master',
-		'path' => '/home2/woodwas4/www/wpcopilot.net/github/'
-	)
+		'path' => '/path/to/local/code/'
+	)*/
 );
 
 /**
