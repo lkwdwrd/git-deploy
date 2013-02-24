@@ -57,6 +57,7 @@ abstract class Deploy {
 		if ( ! is_array( $repo ) )
 			return false;
 
+		error_log( var_export( $repo, true ) );
 		reset( $repo );
 		error_log( var_export( $repo, true ) );
 		$name = key( $repo );
