@@ -9,6 +9,8 @@ if( ! isset( $_POST['payload'] ) )
 define( 'ACTIVE_DEPLOY_ENDPOINT', true );
 
 require_once 'deploy-config.php';
+
+error_log( 'all includes finished' );
 /**
  * Deploys GitHub git repos
  */
