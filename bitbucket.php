@@ -1,5 +1,5 @@
 <?php
-require_once 'deploy-config.php'
+require_once 'deploy-config.php';
 /**
  * Deploys BitBucket git repos
  */
