@@ -35,7 +35,7 @@ abstract class Deploy {
 	/**
 	 * The path to where we wish to store our log file.
 	 */
-	private static $_log_path = __DIR__;
+	private static $_log_path = DEPLOY_LOG_DIR;
 
 	/**
 	 * The timestamp format used for logging.
@@ -74,7 +74,7 @@ abstract class Deploy {
 	 * @return void.
 	 */
 	public static function set( $var, $value ) {
-		if ( ( 'log_path' === $var || 'log_name' === $var || 'date_format' === $var ) && is_string( $value ) )
+		if ( ( 'log_name' === $var || 'date_format' === $var ) && is_string( $value ) )
 			self::${'_'.$var} = $value;
 	}
 

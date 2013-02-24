@@ -18,7 +18,6 @@ class GitHub_Deploy extends Deploy {
 		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $branch ){
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $commit;
-			error_log( var_export( $data, true) );
 			parent::__construct( $data );
 		}
 	}
