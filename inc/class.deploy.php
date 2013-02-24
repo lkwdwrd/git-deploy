@@ -57,7 +57,8 @@ abstract class Deploy {
 		if ( ! is_array( $repo ) )
 			return false;
 
-		$name = key( reset( $repo ) );
+		reset( $repo );
+		$name = key( $repo );
 		error_log( var_export( $name, true ) );
 		
 		$required_keys = array( 'path', 'branch' );
@@ -130,7 +131,8 @@ abstract class Deploy {
 	protected function __construct( $repo ) {
 		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
 
-		$this->_name = key( reset( $repo ) );
+		reset( $repo )
+		$this->_name = key( $repo );
 
 		$available_options = array( 'branch', 'remote', 'commit', 'post_deploy' );
 
