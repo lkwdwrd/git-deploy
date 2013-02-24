@@ -53,15 +53,12 @@ abstract class Deploy {
 	 * @param array $repo The repo information and the path information for deployment
 	 * @return bool True on success, false on failure.
 	 */
-	public static function register_repo( $repo ) {
-		if ( ! is_array( $repo ) )
+	public static function register_repo( $name, $repo ) {
+		if ( ! is_string( $name ) )
 			return false;
 
-		error_log( var_export( $repo, true ) );
-		reset( $repo );
-		error_log( var_export( $repo, true ) );
-		$name = key( $repo );
-		error_log( var_export( $name, true ) );
+		if ( ! is_array( $repo ) )
+			return false;
 		
 		$required_keys = array( 'path', 'branch' );
 		foreach ( $required_keys as $key ) {
@@ -130,11 +127,10 @@ abstract class Deploy {
 	 * 
 	 * @param 	array 	$repo 	The repository info. See class block for docs.
 	 */
-	protected function __construct( $repo ) {
+	protected function __construct( $name, $repo ) {
 		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
 
-		reset( $repo );
-		$this->_name = key( $repo );
+		$this->_name = $name;
 
 		$available_options = array( 'branch', 'remote', 'commit', 'post_deploy' );
 
@@ -200,4 +196,4 @@ abstract class Deploy {
 }
 // Registers all of our repos with the Deploy class
 foreach ( $repos as $repo )
-	Deploy::register_repo( $repo );
+	Deploy::register_repo( key( $repo ), $repo );

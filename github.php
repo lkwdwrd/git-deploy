@@ -29,7 +29,7 @@ class GitHub_Deploy extends Deploy {
 			error_log( 'past the payload check' );
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $commit;
-			parent::__construct( $data );
+			parent::__construct( $name, $data );
 		}
 	}
 }
