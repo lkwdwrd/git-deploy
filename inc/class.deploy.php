@@ -58,6 +58,7 @@ abstract class Deploy {
 			return false;
 
 		$name = key( reset( $repo ) );
+		error_log( var_export( $name, true ) );
 		
 		$required_keys = array( 'path', 'branch' );
 		foreach ( $required_keys as $key ) {
