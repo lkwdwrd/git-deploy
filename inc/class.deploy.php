@@ -58,6 +58,7 @@ abstract class Deploy {
 			return false;
 
 		reset( $repo );
+		error_log( var_export( $repo, true ) );
 		$name = key( $repo );
 		error_log( var_export( $name, true ) );
 		
@@ -131,7 +132,7 @@ abstract class Deploy {
 	protected function __construct( $repo ) {
 		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
 
-		reset( $repo )
+		reset( $repo );
 		$this->_name = key( $repo );
 
 		$available_options = array( 'branch', 'remote', 'commit', 'post_deploy' );
