@@ -1,4 +1,24 @@
 <?php
+/**
+ * The main Deploy class. This is set up for GIT repos.
+ *
+ * To create an end point, extend this abstract class and in the new class' constructor
+ * parse whatever post payload and pass it to parent::construct(). The data passed should
+ * be an array that is in the following order (note this is right in line with how the
+ * config arrays are put together).
+ * 'repo name' => array(
+ * 		'name'   => 'repo name', // Required
+ * 		'path' 	 => '/path/to/local/repo/' // Required
+ * 		'branch' => 'the_desired_deploy_branch', // Required
+ * 		'commit' => 'the SHA of the commit', // Optional. The SHA is only used in logging.
+ *		'remote' => 'git_remote_repo', // Optional. Defaults to 'origin'
+ * 		'post_deploy' => 'callback' // Optional callback function for whatever.
+ * )
+ *
+ * The parent constructor will take care of the rest of the setup and deploy.
+ *
+ * @todo move the logging functions to a separate class to separate the functionality.
+ */
 
 abstract class Deploy {
 	/**
@@ -30,11 +50,11 @@ abstract class Deploy {
 	 * @param array $repo The repo information and the path information for deployment
 	 * @return bool True on success, false on failure.
 	 */
-	public static function register_repo( $repo ) {
+	private static function register_repo( $repo ) {
 		if ( ! is_array( $repo ) )
 			return false;
 		
-		$required_keys = array( 'name', 'path' );
+		$required_keys = array( 'name', 'path', 'branch' );
 		foreach ( $required_keys as $key ) {
 			if ( ! array_key_exists( $key, $repo ) )
 				return false;
@@ -165,3 +185,6 @@ abstract class Deploy {
 		}
 	}
 }
+// Registers all of our repos with the Deploy class
+foreach ( $repos as $repo )
+	Deploy::register_repo( $repo );

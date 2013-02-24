@@ -1,5 +1,5 @@
 <?php
-require_once 'class.deploy.php';
+require_once 'deploy-config.php'
 /**
  * Deploys BitBucket git repos
  */
@@ -21,28 +21,6 @@ class BitBucket_Deploy extends Deploy {
 		}
 	}
 }
-
-/**
- * The repos that we want to deploy
- */
-$repos = array(
-	'deploytest' => array(
-		'name' => 'deploytest',
-		'branch' => 'master',
-		'remote' => 'origin',
-		'path' => '/home2/woodwas4/www/wpcopilot.net/deploytest/deploytest/'
-	),
-	'anotherrepo' => array(
-		'name' => 'anotherrepo',
-		'branch' => 'deploy',
-		'remote' => 'origin',
-		'path' => '/home2/woodwas4/www/wpcopilot.net/two/'
-	)
-);
-
-// Registers all of our repos with the Deploy class
-foreach ( $repos as $repo )
-	Deploy::register_repo( $repo );
 
 // Checks for payload data, and if present, starts the deploy attempt.
 if( isset( $_POST['payload'] ) ) {
