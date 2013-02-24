@@ -15,13 +15,11 @@ class GitHub_Deploy extends Deploy {
 		$name = $payload->repository->name;
 		$branch = basename( $payload->ref );
 		$commit = $payload->commits[0]->id;
-		error_log( var_export( $commit , true ) );
-		//$this->log( $payload['commits'][0]['branch'] );
-		//if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ){
-			//$data = parent::$repos[ $name ];
-			//$data['commit'] = $payload['commits'][0]['node'];
-			//parent::__construct( $data );
-		//}
+		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $branch ){
+			$data = parent::$repos[ $name ];
+			$data['commit'] = $commit;
+			parent::__construct( $data );
+		}
 	}
 }
 // Checks for payload data, and if present, starts the deploy attempt.
