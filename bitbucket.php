@@ -35,7 +35,7 @@ $repos = array(
 	'anotherrepo' => array(
 		'name' => 'anotherrepo',
 		'branch' => 'deploy',
-		'remote' -> 'origin',
+		'remote' => 'origin',
 		'path' => '/home2/woodwas4/www/wpcopilot.net/two/'
 	)
 );
