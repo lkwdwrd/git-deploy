@@ -197,5 +197,5 @@ abstract class Deploy {
 	}
 }
 // Registers all of our repos with the Deploy class
-foreach ( $repos as $repo )
-	Deploy::register_repo( key( $repo ), $repo );
+foreach ( $repos as $name => $repo )
+	Deploy::register_repo( $name, $repo );
