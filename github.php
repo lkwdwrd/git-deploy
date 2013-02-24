@@ -26,7 +26,6 @@ class GitHub_Deploy extends Deploy {
 		$branch = basename( $payload->ref );
 		$commit = substr( $payload->commits[0]->id, 0, 12 );
 		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $branch ) {
-			error_log( 'past the payload check' );
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $commit;
 			parent::__construct( $name, $data );

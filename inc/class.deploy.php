@@ -54,10 +54,7 @@ abstract class Deploy {
 	 * @return bool True on success, false on failure.
 	 */
 	public static function register_repo( $name, $repo ) {
-			error_log( var_export( $repo, true ) );
-			error_log( var_export( $name, true ) );
 		if ( ! is_string( $name ) )
-			error_log( $name );
 
 		if ( ! is_array( $repo ) )
 			return false;
