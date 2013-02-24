@@ -146,12 +146,12 @@ abstract class Deploy {
 	 * @param 	string 	$message 	The message to write
 	 * @param 	string 	$type 		The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
 	 */
-	protected function log( $message, $type = 'INFO' ){
-		if ( self::$_log_name ){
+	protected function log( $message, $type = 'INFO' ) {
+		if ( self::$_log_name ) {
 			// Set the name of the log file
 			$filename = self::$_log_path . '/' . rtrim( self::$_log_name, '/' );
 
-			if ( ! file_exists( $filename ) ){
+			if ( ! file_exists( $filename ) ) {
 				// Create the log file
 				file_put_contents( $filename, '' );
 
@@ -161,15 +161,15 @@ abstract class Deploy {
 
 			// Write the message into the log file
 			// Format: time --- type: message
-			file_put_contents( $filename, date( self::$_date_format ) . ' --- ' . $type . ': ' . $message . PHP_EOL, FILE_APPEND);
+			file_put_contents( $filename, date( self::$_date_format ) . ' --- ' . $type . ': ' . $message . PHP_EOL, FILE_APPEND );
 		}
 	}
 
 	/**
 	* Executes the necessary commands to deploy the code.
 	*/
-	private function execute(){
-		try{
+	private function execute() {
+		try {
 			// Make sure we're in the right directory
 			chdir( $this->_path);
 
@@ -186,7 +186,7 @@ abstract class Deploy {
 				call_user_func( $this->_post_deploy );
 
 			$this->log( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch . ' successful' );
-		} catch ( Exception $e ){
+		} catch ( Exception $e ) {
 			$this->log( $e, 'ERROR' );
 		}
 	}
