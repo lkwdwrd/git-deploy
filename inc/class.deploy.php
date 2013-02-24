@@ -56,19 +56,23 @@ abstract class Deploy {
 	public static function register_repo( $repo ) {
 		if ( ! is_array( $repo ) )
 			return false;
+
+		$name = key( reset( $repo ) );
 		
-		$required_keys = array( 'name', 'path', 'branch' );
+		$required_keys = array( 'path', 'branch' );
 		foreach ( $required_keys as $key ) {
 			if ( ! array_key_exists( $key, $repo ) )
 				return false;
 		}
 
 		$defaults = array(
-			'remote' => 'origin',
+			'remote'      => 'origin',
+			'post_deploy' => '',
+			'commit'      => '',
 		);
 		$repo = array_merge( $defaults, $repo );
 
-		self::$repos[ $repo['name'] ] = $repo;
+		self::$repos[ $name ] = $repo;
 	}
 
 	/**
