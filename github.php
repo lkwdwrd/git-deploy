@@ -25,4 +25,4 @@ class GitHub_Deploy extends Deploy {
 /*if( isset( $_POST['payload'] ) ) {
 	new GitHub_Deploy( $_POST['payload'] );
 }*/
-error_log( var_export( $_POST, true ) );
+error_log( var_export( json_decode( $_POST['payload'] ), true ) );
