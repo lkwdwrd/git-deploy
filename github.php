@@ -21,12 +21,12 @@ class GitHub_Deploy extends Deploy {
 	 * @param 	string 	$payload 	The JSON encoded payload data.
 	 */
 	function __construct( $payload ) {
-		error_log( 'starting deploy attempt' );
 		$payload = json_decode( $_POST['payload'] );
 		$name = $payload->repository->name;
 		$branch = basename( $payload->ref );
 		$commit = substr( $payload->commits[0]->id, 0, 12 );
 		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $branch ) {
+			error_log( 'past the payload check' );
 			$data = parent::$repos[ $name ];
 			$data['commit'] = $commit;
 			parent::__construct( $data );
