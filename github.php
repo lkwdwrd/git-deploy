@@ -20,7 +20,6 @@ class GitHub_Deploy extends Deploy {
 	 * @param 	string 	$payload 	The JSON encoded payload data.
 	 */
 	function __construct( $payload ) {
-		error_log( 'make it here!' );
 		$payload = json_decode( $_POST['payload'] );
 		$name = $payload->repository->name;
 		$branch = basename( $payload->ref );

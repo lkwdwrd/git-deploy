@@ -1,5 +1,5 @@
 <?php
-
+error_log( 'make it here!' );
 /**
  * The repos that we want to deploy.
  *
