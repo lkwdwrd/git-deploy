@@ -50,7 +50,7 @@ abstract class Deploy {
 	 * @param array $repo The repo information and the path information for deployment
 	 * @return bool True on success, false on failure.
 	 */
-	private static function register_repo( $repo ) {
+	public static function register_repo( $repo ) {
 		if ( ! is_array( $repo ) )
 			return false;
 		
