@@ -61,8 +61,7 @@ abstract class Deploy {
 		}
 
 		$defaults = array(
-			'branch' => 'origin',
-			'remote' => 'master',
+			'remote' => 'origin',
 		);
 		$repo = array_merge( $defaults, $repo );
 
