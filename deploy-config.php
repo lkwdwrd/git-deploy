@@ -46,7 +46,7 @@ $repos = array(
 /**
  * Sets the deploy log direcotry
  */
-define( 'DEPLOY_LOG_DIR', dirname(__DIR_) );
+define( 'DEPLOY_LOG_DIR', dirname(dirname(__FILE__) ) );
 
 /* Do not edit below this line */
 require_once 'inc/class.deploy.php';
