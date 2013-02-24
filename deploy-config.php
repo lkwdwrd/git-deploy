@@ -35,6 +35,11 @@ $repos = array(
 		'branch' => 'deploy',
 		'remote' => 'origin',
 		'path' => '/home2/woodwas4/www/wpcopilot.net/two/'
+	),
+	'ghtest' => array(
+		'name' => 'ghtest',
+		'branch' => 'master',
+		'path' => '/home2/woodwas4/www/wpcopilot.net/github/'
 	)
 );
 
