@@ -1,4 +1,13 @@
 <?php
+// Make sure we have a payload, stop if we do not.
+if( ! isset( $_POST['payload'] ) )
+	die( '<h1>No payload present</h1><p>Must have a BitBucket POST payload to deploy from this script.</p>' );
+
+/**
+ * Tell the script this is an active end point.
+ */
+define( 'ACTIVE_DEPLOY_ENDPOINT', true );
+
 require_once 'deploy-config.php';
 /**
  * Deploys BitBucket git repos
@@ -21,8 +30,5 @@ class BitBucket_Deploy extends Deploy {
 		}
 	}
 }
-
-// Checks for payload data, and if present, starts the deploy attempt.
-if( isset( $_POST['payload'] ) ) {
-	new BitBucket_Deploy( $_POST['payload'] );
-}
+// Start the deploy attempt.
+new BitBucket_Deploy( $_POST['payload'] );

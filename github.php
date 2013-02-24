@@ -1,4 +1,13 @@
 <?php
+// Make sure we have a payload, stop if we do not.
+if( ! isset( $_POST['payload'] ) )
+	die( '<h1>No payload present</h1><p>Must have a GitHub POST payload to deploy from this script.</p>' );
+
+/**
+ * Tell the script this is an active end point.
+ */
+define( 'ACTIVE_DEPLOY_ENDPOINT', true );
+
 require_once 'deploy-config.php';
 /**
  * Deploys GitHub git repos
@@ -22,7 +31,5 @@ class GitHub_Deploy extends Deploy {
 		}
 	}
 }
-// Checks for payload data, and if present, starts the deploy attempt.
-if( isset( $_POST['payload'] ) ) {
-	new GitHub_Deploy( $_POST['payload'] );
-}
+// Starts the deploy attempt.
+new GitHub_Deploy( $_POST['payload'] );

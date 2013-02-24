@@ -1,12 +1,12 @@
 <?php
+
 /**
  * The repos that we want to deploy.
  *
  * Each repos will be an entry in the array in the following way:
- * 'repo name' => array(
- * 		'name'   => 'repo name', // Required
- * 		'path' 	 => '/path/to/local/repo/' // Required
- * 		'branch' => 'the_desired_deploy_branch', // Required
+ * 'repo name' => array( // Required. This is the repo name
+ * 		'path' 	 => '/path/to/local/repo/' // Required. The local path to your code.
+ * 		'branch' => 'the_desired_deploy_branch', // Required. Deplment branch.
  *		'remote' => 'git_remote_repo', // Optional. Defaults to 'origin'
  * 		'post_deploy' => 'callback' // Optional callback function for whatever.
  * )
@@ -17,6 +17,10 @@
  * for multiple repos.
  * @see https://confluence.atlassian.com/pages/viewpage.action?pageId=271943168
  *
+ * Note that deploy keys are only necessary if the repo is private. If it is a
+ * public repo, then you do not need a key to get read only access to the repo
+ * which is really what we are after for deployment.
+ *
  * Once you have done an initial git pull in the desired code location, you can
  * run 'pwd' to get the full directory of your git repo. Once done, enter that
  * full path in the 'path' option for that repo. The optional callback will allow
@@ -25,19 +29,16 @@
  */
 $repos = array(
 	'deploytest' => array(
-		'name' => 'deploytest',
 		'branch' => 'master',
 		'remote' => 'origin',
 		'path' => '/home2/woodwas4/www/wpcopilot.net/deploytest/deploytest/'
 	),
 	'anotherrepo' => array(
-		'name' => 'anotherrepo',
 		'branch' => 'deploy',
 		'remote' => 'origin',
 		'path' => '/home2/woodwas4/www/wpcopilot.net/two/'
 	),
 	'ghtest' => array(
-		'name' => 'ghtest',
 		'branch' => 'master',
 		'path' => '/home2/woodwas4/www/wpcopilot.net/github/'
 	)

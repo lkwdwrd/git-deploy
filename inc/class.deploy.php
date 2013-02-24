@@ -1,4 +1,9 @@
 <?php
+
+// Causes the script to die if we are not using an actual enpoint to access it.
+if( ! defined( 'ACTIVE_DEPLOY_ENDPOINT' || ! ACTIVE_DEPLOY_ENDPOINT ) )
+	die( '<h1>No Access</ha><p>An enpoint needs to be defined to use this file.</p>' );
+
 /**
  * The main Deploy class. This is set up for GIT repos.
  *
@@ -117,12 +122,14 @@ abstract class Deploy {
 	/**
 	 * Sets up the repo information.
 	 * 
-	 * @param 	array 	$repo 	Directory where your website is located
+	 * @param 	array 	$repo 	The repository info. See class block for docs.
 	 */
 	protected function __construct( $repo ) {
 		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
 
-		$available_options = array( 'name', 'branch', 'remote', 'commit', 'post_deploy' );
+		$this->_name = key( reset( $repo ) );
+
+		$available_options = array( 'branch', 'remote', 'commit', 'post_deploy' );
 
 		foreach ( $repo as $option => $value ){
 			if ( in_array( $option, $available_options ) ){
