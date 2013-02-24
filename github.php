@@ -19,7 +19,7 @@ class GitHub_Deploy extends Deploy {
 			//$data = parent::$repos[ $name ];
 			//$data['commit'] = $payload['commits'][0]['node'];
 			//parent::__construct( $data );
-		}
+		//}
 	}
 }
 // Checks for payload data, and if present, starts the deploy attempt.
