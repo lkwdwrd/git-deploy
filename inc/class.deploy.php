@@ -189,6 +189,7 @@ abstract class Deploy {
 				call_user_func( $this->_post_deploy );
 
 			$this->log( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch . ' successful' );
+			echo( '[SHA: ' . $this->_commit . '] Deployment of ' . $this->_name . ' from branch ' . $this->_branch . ' successful' );
 		} catch ( Exception $e ) {
 			$this->log( $e, 'ERROR' );
 		}
