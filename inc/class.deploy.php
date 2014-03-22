@@ -1,7 +1,7 @@
 <?php
-// Causes the script to die if we are not using an actual enpoint to access it.
+// Causes the script to die if we are not using an actual endpoint to access it.
 if( ! defined( 'ACTIVE_DEPLOY_ENDPOINT' ) || true !== ACTIVE_DEPLOY_ENDPOINT )
-	die( '<h1>No Access</h1><p>An enpoint needs to be defined to use this file.</p>' );
+	die( '<h1>No Access</h1><p>An endpoint needs to be defined to use this file.</p>' );
 /**
  * The main Deploy class. This is set up for GIT repos.
  *
@@ -48,7 +48,7 @@ abstract class Deploy {
 	private static $_date_format = 'Y-m-d H:i:sP';
 	
 	/**
-	 * Registers available repos for deployement
+	 * Registers available repos for deployment
 	 *
 	 * @param array $repo The repo information and the path information for deployment
 	 * @return bool True on success, false on failure.
