@@ -44,3 +44,6 @@ More: https://confluence.atlassian.com/pages/viewpage.action?pageId=271943168
 
 ## Usage
 * commit and push 
+
+# More information
+http://wpcopilot.net/git-auto-deployment/
