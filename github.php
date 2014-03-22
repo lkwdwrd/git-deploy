@@ -16,7 +16,7 @@ require_once 'deploy-config.php';
 class GitHub_Deploy extends Deploy {
 	/**
 	 * Decodes and validates the data from github and calls the 
-	 * doploy contructor to deoploy the new code.
+	 * deploy constructor to deploy the new code.
 	 *
 	 * @param 	string 	$payload 	The JSON encoded payload data.
 	 */

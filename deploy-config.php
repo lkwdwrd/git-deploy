@@ -35,7 +35,7 @@ $repos = array(
 );
 
 /**
- * Sets the deploy log direcotry
+ * Sets the deploy log directory
  */
 define( 'DEPLOY_LOG_DIR', dirname( __FILE__ ) );
 
