@@ -10,7 +10,7 @@ cd /var/www/deploy
 ```
 * clone this repo
 ```bash
-git clone git@github.com:lkwdwrd/git-deploy.git .
+git clone https://github.com/lkwdwrd/git-deploy.git .
 ```
 * setup apache/nginx/other web-server site (ex. deploy.some.site) to /var/www/deploy 
 
