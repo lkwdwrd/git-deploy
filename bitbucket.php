@@ -1,7 +1,9 @@
 <?php
 // Make sure we have a payload, stop if we do not.
-if( ! isset( $_POST['payload'] ) )
-	die( '<h1>No payload present</h1><p>A BitBucket POST payload is required to deploy from this script.</p>' );
+if( ! isset( $_POST['payload'] ) ) {
+	header ( 'HTTP/1.1 500 Internal Server Error' );
+	die( 'No payload present, a BitBucket POST payload is required to deploy from this script.' );
+}
 
 /**
  * Tell the script this is an active end point.
@@ -14,7 +16,7 @@ require_once 'deploy-config.php';
  */
 class BitBucket_Deploy extends Deploy {
 	/**
-	 * Decodes and validates the data from bitbucket and calls the 
+	 * Decodes and validates the data from bitbucket and calls the
 	 * deploy constructor to deploy the new code.
 	 *
 	 * @param 	string 	$payload 	The JSON encoded payload data.
