@@ -30,7 +30,7 @@ abstract class Deploy {
 	protected static $repos = array();
 
 	/**
-	 * The name of the file that will be used for logging deployments. Set 
+	 * The name of the file that will be used for logging deployments. Set
 	 * to false to disable logging.
 	 */
 	private static $_log_name = 'deployments.log';
@@ -42,11 +42,11 @@ abstract class Deploy {
 
 	/**
 	 * The timestamp format used for logging.
-	 * 
+	 *
 	 * @link    http://www.php.net/manual/en/function.date.php
 	 */
 	private static $_date_format = 'Y-m-d H:i:sP';
-	
+
 	/**
 	 * Registers available repos for deployment
 	 *
@@ -59,7 +59,7 @@ abstract class Deploy {
 
 		if ( ! is_array( $repo ) )
 			return false;
-		
+
 		$required_keys = array( 'path', 'branch' );
 		foreach ( $required_keys as $key ) {
 			if ( ! array_key_exists( $key, $repo ) )
@@ -107,7 +107,7 @@ abstract class Deploy {
 	private $_remote;
 
 	/**
-	 * The path to where your website and git repository are located, can be 
+	 * The path to where your website and git repository are located, can be
 	 * a relative or absolute path
 	 */
 	private $_path;
@@ -124,7 +124,7 @@ abstract class Deploy {
 
 	/**
 	 * Sets up the repo information.
-	 * 
+	 *
 	 * @param 	array 	$repo 	The repository info. See class block for docs.
 	 */
 	protected function __construct( $name, $repo ) {
@@ -145,7 +145,7 @@ abstract class Deploy {
 
 	/**
 	 * Writes a message to the log file.
-	 * 
+	 *
 	 * @param 	string 	$message 	The message to write
 	 * @param 	string 	$type 		The type of log message (e.g. INFO, DEBUG, ERROR, etc.)
 	 */

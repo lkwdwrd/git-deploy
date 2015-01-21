@@ -1,4 +1,4 @@
-#Git Auto Deployment 
+#Git Auto Deployment
 Git duto deployment using POST deploy hooks that are offered by GitHub and BitBucket.
 
 ***
@@ -12,7 +12,7 @@ cd /var/www/deploy
 ```bash
 git clone https://github.com/lkwdwrd/git-deploy.git .
 ```
-* setup apache/nginx/other web-server site (ex. deploy.some.site) to /var/www/deploy 
+* setup apache/nginx/other web-server site (ex. deploy.some.site) to /var/www/deploy
 
 ## Setup
 * fill deploy config with your repos
@@ -38,12 +38,12 @@ $repos = array(
 ```bash
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -C 'Bitbucket deploy'
 ```
-* add public key as Deploy Key to your repo 
+* add public key as Deploy Key to your repo
 
 More: https://confluence.atlassian.com/pages/viewpage.action?pageId=271943168
 
 ## Usage
-* commit and push 
+* commit and push
 
 # More information
 http://lkwdwrd.com/git-auto-deployment/

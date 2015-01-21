@@ -10,7 +10,7 @@
  * 		'post_deploy' => 'callback' // Optional callback function for whatever.
  * )
  *
- * You can put as many of these together as you want, each one is simply 
+ * You can put as many of these together as you want, each one is simply
  * another entry in the $repos array. To set up a deploy create a deploy key
  * for your repo on github or bitbucket. You can generate multiple deploy keys
  * for multiple repos.
