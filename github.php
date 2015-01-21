@@ -2,7 +2,7 @@
 // Make sure we have a payload, stop if we do not.
 if( ! isset( $_POST['payload'] ) ) {
 	header ( 'HTTP/1.1 500 Internal Server Error' );
-	die( '<h1>No payload present</h1><p>A GitHub POST payload is required to deploy from this script.</p>' );
+	die( 'No payload present, a GitHub POST payload is required to deploy from this script.' );
 }
 
 /**
