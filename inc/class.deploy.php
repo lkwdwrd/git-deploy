@@ -87,6 +87,30 @@ abstract class Deploy {
 	}
 
 	/**
+	 * Validates the payload data
+	 *
+	 * @param 	string 	$payload 	The JSON encoded payload data.
+	 * @param 	array 	$headers 	Array with all the HTTP headers from the current request.
+	 */
+	protected function validate_payload( $payload, $headers, $secret ) {
+		if ( empty( $secret ) )
+			return true;
+
+		$signature = $headers['X-Hub-Signature'];
+
+		if ( ! isset( $signature ) )
+			return false;
+
+		list( $algo, $hash ) = explode( '=', $signature, 2 );
+		$payload_hash = hash_hmac( $algo, $payload, $secret );
+
+		if ( $hash !== $payload_hash )
+			return false;
+
+		return true;
+	}
+
+	/**
 	 * Whether or not we are ready to deploy
 	 */
 	private $_deploy_ready;
@@ -127,7 +151,13 @@ abstract class Deploy {
 	 * 
 	 * @param 	array 	$repo 	The repository info. See class block for docs.
 	 */
-	protected function __construct( $name, $repo ) {
+	protected function __construct( $name, $repo, $payload, $headers ) {
+		if ( ! $this->validate_payload( $payload, $headers, $repo['secret'] ) ) {
+			$this->log( '[SHA: ' . $repo['commit'] . '] Deployment of ' . $name . ' from branch ' . $repo['branch'] . ' failed. Signature mismatch.', 'ERROR' );
+			echo( '[SHA: ' . $repo['commit'] . '] Deployment of ' . $name . ' from branch ' . $repo['branch'] . ' failed. Signature mismatch.' );
+			return;
+		}
+
 		$this->_path = realpath( $repo['path'] ) . DIRECTORY_SEPARATOR;
 
 		$this->_name = $name;
@@ -174,7 +204,7 @@ abstract class Deploy {
 	private function execute() {
 		try {
 			// Make sure we're in the right directory
-			chdir( $this->_path);
+			chdir( $this->_path );
 
 			// Discard any changes to tracked files since our last deploy
 			exec( 'git reset --hard HEAD', $output );
@@ -195,6 +225,7 @@ abstract class Deploy {
 		}
 	}
 }
+
 // Registers all of our repos with the Deploy class
 foreach ( $repos as $name => $repo )
 	Deploy::register_repo( $name, $repo );
