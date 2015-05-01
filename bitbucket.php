@@ -14,7 +14,7 @@ require_once 'deploy-config.php';
  */
 class BitBucket_Deploy extends Deploy {
 	/**
-	 * Decodes and validates the data from bitbucket and calls the 
+	 * Decodes and validates the data from bitbucket and calls the
 	 * deploy constructor to deploy the new code.
 	 *
 	 * @param 	string 	$payload 	The JSON encoded payload data.
@@ -22,12 +22,36 @@ class BitBucket_Deploy extends Deploy {
 	function __construct( $payload ) {
 		$payload = json_decode( stripslashes( $_POST['payload'] ), true );
 		$name = $payload['repository']['name'];
-		$this->log( $payload['commits'][0]['branch'] );
-		if ( isset( parent::$repos[ $name ] ) && parent::$repos[ $name ]['branch'] === $payload['commits'][0]['branch'] ) {
-			$data = parent::$repos[ $name ];
-			$data['commit'] = $payload['commits'][0]['node'];
-			parent::__construct( $name, $data );
+
+		if (!isset(parent::$repos[$name])) {
+		    $this->log(sprintf('Unknown repository: \'%s\'', $name));
+		    return;
 		}
+
+		$multipleBranches = false;
+		$branch = $payload['commits'][0]['branch'];
+
+		$this->log(sprintf('[REPOSITORY]: %s. [BRANCH]: %s.', $name, $branch));
+
+		if (isset(parent::$repos[$name][$branch])) {
+		    $multipleBranches = is_array(parent::$repos[$name][$branch]);
+		}
+
+		if ((!$multipleBranches && parent::$repos[$name]['branch'] !== $branch) || ($multipleBranches && !isset(parent::$repos[$name][$branch]))) {
+		    $this->log(sprintf('Unknown branch \'%s\' of repository \'%s\'', $branch, $name));
+		    return;
+		}
+
+		$data = parent::$repos[$name];
+
+		if ($multipleBranches) {
+            $data = parent::$repos[$name][$branch];
+        }
+
+		$data['commit'] = $payload['commits'][0]['node'];
+		$data['branch'] = $branch;
+
+		parent::__construct($name, $data);
 	}
 }
 // Start the deploy attempt.
