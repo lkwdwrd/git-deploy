@@ -11,7 +11,7 @@
  * 		'secret' => '' // Optional. The secret specified in the webhook settings (Only works with GitHub).
  * )
  *
- * You can put as many of these together as you want, each one is simply 
+ * You can put as many of these together as you want, each one is simply
  * another entry in the $repos array. To set up a deploy create a deploy key
  * for your repo on github or bitbucket. You can generate multiple deploy keys
  * for multiple repos.
@@ -27,13 +27,34 @@
  * you to ping something else as well such as hitting a DB update script or any
  * other configuration you may need to do for the newly deployed code.
  */
+$domainsDirectory = '/home/mrto/domains';
+$publicDirectory = 'public_html';
+$privateDirectory = 'private_html';
+
+$branchMaster = 'master';
+$branchDevelop = 'develop';
+
 $repos = array(
-	/*'examplerepo' => array(
-		'branch' => 'master',
-		'remote' => 'origin',
-		'path' => '/path/to/local/code/',
-		'secret' => ''
-	)*/
+    /*
+    'examplerepo' => array(
+        'branch' => 'master',
+        'remote' => 'origin',
+        'path' => '/path/to/local/code/',
+        'secret' => ''
+    ),
+    'anotherrepo => array(
+        'master' => array(
+            'remote' => 'origin',
+            'path' => '/path/to/local/code/master',
+            'secret' => ''
+        ),
+        'develop' => array(
+            'remote' => 'origin',
+            'path' => '/path/to/local/code/develop',
+            'secret' => ''
+        )
+    )
+    */
 );
 
 /**
