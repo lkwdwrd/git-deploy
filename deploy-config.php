@@ -40,6 +40,7 @@ $repos = array(
  * Sets the deploy log directory
  */
 define( 'DEPLOY_LOG_DIR', dirname( __FILE__ ) );
+define( 'DEPLOY_FULL_OUTPUT', true );
 
 /* Do not edit below this line */
 require_once 'inc/class.deploy.php';

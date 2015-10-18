@@ -44,6 +44,21 @@ More: https://confluence.atlassian.com/pages/viewpage.action?pageId=271943168
 
 ## Usage
 * commit and push 
+## Common Issues
+
+### Not able to pull from a private github repository
+In order to be able to pull from a github repository, this script has to connect using a public key, you have to add the key to the .ssh folder of the user who is running the git-deploy script. And server has to trust on github authenticity without interactive prompt, you can fix this creating a .php file with this content and running only once, you should see a succesfully authentication message with some debug information.
+
+```php
+error_reporting(E_ALL);
+header('Content-type: text/plain');
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+echo system( 'ssh -v -o "StrictHostKeyChecking no" git@github.com 2>&1' );
+// Uncomment this lines to also check that pull is working
+//chdir('/path/to/repository/');
+//echo system('git pull origin master 2>&1'); // change master for your branch if needed
+```
 
 # More information
 http://lkwdwrd.com/git-auto-deployment/
