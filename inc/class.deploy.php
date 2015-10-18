@@ -212,6 +212,9 @@ abstract class Deploy {
 			// Update the local repository
 			exec( 'git pull ' . $this->_remote . ' ' . $this->_branch . ' 2>&1', $output, $return_var );
 
+			if ($return_var != 0)
+				throw new Exception("Git pull failed", 1);
+
 			// Secure the .git directory
 			echo exec( 'chmod -R og-rx .git' );
 
@@ -224,8 +227,10 @@ abstract class Deploy {
 
 			if (DEPLOY_FULL_OUTPUT)
 				$this->log( $output );
+
 		} catch ( Exception $e ) {
 			$this->log( $e, 'ERROR' );
+			$this->log( $output );
 		}
 	}
 }
