@@ -1,5 +1,5 @@
 #Git Auto Deployment 
-Git duto deployment using POST deploy hooks that are offered by GitHub and BitBucket.
+Git auto deployment using POST deploy hooks that are offered by GitHub and BitBucket.
 
 ***
 ## Install
